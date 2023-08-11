@@ -8,6 +8,9 @@ extern const uint8_t font8x8_ib8x8u[224][8];
 uint16_t *bfr,*bfp;
 uint16_t temp[240];
 
+//
+// drawchar x range 0 - 39 y range 0 - 24
+
 void drawchar(int ch,int x,int y) {
 
   y+=2;
@@ -15,8 +18,8 @@ void drawchar(int ch,int x,int y) {
     for (int iy=0,rtbit=0x80;iy<8;iy++,rtbit>>=1)
       if (font8x8_ib8x8u[ch][ix] & rtbit) {
         //canvas.drawPixel(x*8+iy, ix+y*8, WROVER_WHITE);
-        bfr[240-(y*8+ix)+240*(x*8+iy)]=WROVER_WHITE;
-        tft.drawPixel(240-y*8-ix, x*8+iy, WROVER_WHITE);
+        bfr[239-(y*8+ix)+240*(x*8+iy)]=WROVER_WHITE;
+        tft.drawPixel(239-(y*8+ix), x*8+iy, WROVER_WHITE);
       }
 }
 
@@ -29,7 +32,7 @@ void vscroll() {
 
   for (int i=0;i<320;i++) {
     bfp=bfr+(i*240);
-      memmove(bfp+8,bfp,217*2);
+      memmove(bfp+8,bfp,216*2);
   }
   tft.drawBitmap(0, 0, 240, 320, (const uint16_t *)bfr);
 }
